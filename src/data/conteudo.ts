@@ -46,6 +46,7 @@ export const projetos: Projeto[] = [
       "Assistente com RAG que responde dúvidas de alunos com base no Regulamento da Graduação da UFC, mostrando o documento e a página de onde veio cada resposta.",
     tecnologias: ["Python", "FastAPI", "Gemini", "ChromaDB", "Next.js", "Docker"],
     site: "https://ufc-rag.vercel.app",
+    imagem: "/projetos/tira-duvidas.jpg",
     github: "https://github.com/alanasena/ufc-rag",
   },
   {

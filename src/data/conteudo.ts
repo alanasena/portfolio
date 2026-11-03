@@ -4,7 +4,7 @@ export const pessoa = {
   nome: "Alana Oliveira de Sena",
   titulo: "Desenvolvedora de software · full stack e IA aplicada",
   // Troque pela sua foto: coloque o arquivo em /public e mude o nome aqui (ex.: "/foto.jpg")
-  foto: "/foto.svg",
+  foto: "/foto.jpg",
   email: "alana.ossena@gmail.com",
   linkedin: "https://www.linkedin.com/in/alanaasena",
   github: "https://github.com/alanasena",

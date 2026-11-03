@@ -1,39 +1,46 @@
-import Aparecer from "./Aparecer";
-
-const cores = {
-  rosa: "bg-rosa",
-  laranja: "bg-laranja",
-  amarelo: "bg-amarelo",
-  verde: "bg-verde",
-  roxo: "bg-roxo",
-  azul: "bg-azul",
+const sombras = {
+  chiclete: "[text-shadow:4px_4px_0_var(--color-chiclete)]",
+  laranja: "[text-shadow:4px_4px_0_var(--color-laranja)]",
+  lavanda: "[text-shadow:4px_4px_0_var(--color-lavanda)]",
+  limao: "[text-shadow:4px_4px_0_var(--color-limao)]",
+  rosinha: "[text-shadow:4px_4px_0_var(--color-rosinha)]",
 };
+
+export function Titulo({
+  children,
+  sombra = "chiclete",
+  className = "",
+}: {
+  children: React.ReactNode;
+  sombra?: keyof typeof sombras;
+  className?: string;
+}) {
+  return (
+    <h2 className={`font-display mb-10 text-[clamp(2.4rem,6vw,4rem)] leading-none ${sombras[sombra]} ${className}`}>
+      {children}
+    </h2>
+  );
+}
 
 export default function Secao({
   id,
   titulo,
-  cor = "rosa",
+  sombra,
+  fundo = "",
   children,
 }: {
   id: string;
   titulo: string;
-  cor?: keyof typeof cores;
+  sombra?: keyof typeof sombras;
+  fundo?: string;
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="mx-auto max-w-5xl px-5 py-16 sm:py-20">
-      <Aparecer>
-        <h2 className="font-titulo mb-10 text-3xl font-extrabold sm:text-4xl">
-          <span className="relative inline-block">
-            <span
-              aria-hidden
-              className={`absolute -bottom-1 left-0 -z-10 h-4 w-full -rotate-1 rounded-full ${cores[cor]} opacity-70`}
-            />
-            {titulo}
-          </span>
-        </h2>
-      </Aparecer>
-      {children}
+    <section id={id} className={fundo}>
+      <div className="mx-auto max-w-6xl px-5 py-20 sm:py-24">
+        <Titulo sombra={sombra}>{titulo}</Titulo>
+        {children}
+      </div>
     </section>
   );
 }

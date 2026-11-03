@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "@fontsource-variable/bricolage-grotesque";
-import "@fontsource-variable/dm-sans";
+import "@fontsource/shrikhand";
 import "./globals.css";
 
 export const metadata: Metadata = {

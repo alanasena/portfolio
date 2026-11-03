@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+/* Cores e fontes do site (vamos ajustar com as suas inspirações) */
+@theme {
+  --color-creme: #fff8ee;
+  --color-tinta: #2b1b3d;
+  --color-rosa: #ff5fa2;
+  --color-laranja: #ff9f1c;
+  --color-amarelo: #ffd23f;
+  --color-verde: #3bceac;
+  --color-roxo: #8e7dff;
+  --color-azul: #4cc9f0;
+
+  --font-titulo: "Bricolage Grotesque Variable", system-ui, sans-serif;
+  --font-sans: "DM Sans Variable", system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--color-creme);
+  color: var(--color-tinta);
+}
+
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
+::selection {
+  background: var(--color-amarelo);
+}

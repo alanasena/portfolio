@@ -1,5 +1,6 @@
 import Movimento from "@/components/Movimento";
 import Menu from "@/components/Menu";
+import Cursor from "@/components/Cursor";
 import Topo from "@/components/Topo";
 import Faixa from "@/components/Faixa";
 import Adesivos from "@/components/Adesivos";
@@ -9,6 +10,7 @@ import { Competencias, Contato, Experiencia, PublicacaoFormacao, Sobre } from "@
 export default function Home() {
   return (
     <Movimento>
+      <Cursor />
       <Faixa
         itens={["full stack", "IA aplicada", "React", "Python", "C# / .NET", "Gemini", "formatura em dez/2026"]}
         className="bg-chiclete text-leite"

@@ -29,6 +29,7 @@ export default function Adesivos() {
           <motion.div
             key={a.t}
             drag
+            data-arrastar
             dragConstraints={area}
             dragElastic={0.15}
             whileDrag={{ scale: 1.12, rotate: 0, zIndex: 10 }}

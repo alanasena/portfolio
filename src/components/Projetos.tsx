@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
 import { projetos } from "@/data/conteudo";
 import Secao from "./Secao";
 
@@ -22,6 +22,37 @@ const formasCapa = [
   "rounded-[3rem]",
 ];
 
+// Cartão que inclina na direção do mouse
+function Cartao({ children, className, parado }: { children: React.ReactNode; className: string; parado?: boolean }) {
+  const reduzir = useReducedMotion();
+  const mx = useSpring(useMotionValue(0), { stiffness: 200, damping: 18 });
+  const my = useSpring(useMotionValue(0), { stiffness: 200, damping: 18 });
+  const rotateY = useTransform(mx, [-0.5, 0.5], [-8, 8]);
+  const rotateX = useTransform(my, [-0.5, 0.5], [7, -7]);
+  const desligado = parado || reduzir;
+
+  return (
+    <motion.li
+      onPointerMove={(e) => {
+        if (desligado || e.pointerType !== "mouse") return;
+        const r = e.currentTarget.getBoundingClientRect();
+        mx.set((e.clientX - r.left) / r.width - 0.5);
+        my.set((e.clientY - r.top) / r.height - 0.5);
+      }}
+      onPointerLeave={() => {
+        mx.set(0);
+        my.set(0);
+      }}
+      whileHover={desligado ? undefined : { y: -8, scale: 1.015 }}
+      transition={{ type: "spring", stiffness: 260, damping: 18 }}
+      style={{ rotateX, rotateY, transformPerspective: 1000 }}
+      className={className}
+    >
+      {children}
+    </motion.li>
+  );
+}
+
 export default function Projetos() {
   return (
     <Secao id="projetos" titulo="Projetos" sombra="laranja">
@@ -29,10 +60,9 @@ export default function Projetos() {
         {projetos.map((p, i) => {
           const e = estilos[i % estilos.length];
           return (
-            <motion.li
+            <Cartao
               key={p.nome}
-              whileHover={p.emBreve ? undefined : { y: -8, rotate: i % 2 ? 1 : -1 }}
-              transition={{ type: "spring", stiffness: 260, damping: 18 }}
+              parado={p.emBreve}
               className={`group flex flex-col rounded-[2rem] border-2 border-vinho p-4 shadow-[6px_6px_0_var(--color-vinho)] ${e.cartao} ${
                 p.emBreve ? "border-dashed shadow-none" : ""
               }`}
@@ -95,7 +125,7 @@ export default function Projetos() {
                   </div>
                 )}
               </div>
-            </motion.li>
+            </Cartao>
           );
         })}
       </ul>

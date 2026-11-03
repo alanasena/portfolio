@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
+import Letras from "./Letras";
 import { pessoa } from "@/data/conteudo";
 import { Brilho, caminhoFlor, Flor, Selo } from "./Formas";
 
@@ -23,8 +24,32 @@ const entrar = (atraso: number) => ({
 });
 
 export default function Topo() {
+  // Posição do mouse no topo, de -1 a 1, para dar profundidade às formas
+  const reduzir = useReducedMotion();
+  const mx = useSpring(useMotionValue(0), { stiffness: 80, damping: 16 });
+  const my = useSpring(useMotionValue(0), { stiffness: 80, damping: 16 });
+  const girarX = useTransform(my, [-1, 1], [10, -10]);
+  const girarY = useTransform(mx, [-1, 1], [-12, 12]);
+  const ondasX = useTransform(mx, [-1, 1], [-14, 14]);
+  const ondasY = useTransform(my, [-1, 1], [-14, 14]);
+  const longeX = useTransform(mx, [-1, 1], [36, -36]);
+  const longeY = useTransform(my, [-1, 1], [30, -30]);
+  const pertoX = useTransform(mx, [-1, 1], [-24, 24]);
+  const pertoY = useTransform(my, [-1, 1], [-20, 20]);
+
+  const mover = (e: React.PointerEvent) => {
+    if (reduzir || e.pointerType !== "mouse") return;
+    const r = e.currentTarget.getBoundingClientRect();
+    mx.set(((e.clientX - r.left) / r.width) * 2 - 1);
+    my.set(((e.clientY - r.top) / r.height) * 2 - 1);
+  };
+  const soltar = () => {
+    mx.set(0);
+    my.set(0);
+  };
+
   return (
-    <section id="topo" className="relative overflow-hidden">
+    <section id="topo" className="relative overflow-hidden" onPointerMove={mover} onPointerLeave={soltar}>
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 pb-20 pt-10 md:grid-cols-[1.1fr_1fr] md:pt-16">
         <div className="order-2 text-center md:order-1 md:text-left">
           <motion.p {...entrar(0.3)} className="text-xl font-semibold">
@@ -32,9 +57,10 @@ export default function Topo() {
           </motion.p>
           <motion.h1
             {...entrar(0.4)}
+            aria-label="Alana Oliveira de Sena"
             className="font-display mt-2 text-[clamp(3rem,9vw,6.5rem)] leading-[0.95] text-vinho [text-shadow:5px_5px_0_var(--color-chiclete)]"
           >
-            Alana Oliveira de Sena
+            <Letras texto="Alana Oliveira de Sena" />
           </motion.h1>
           <motion.p {...entrar(0.5)} className="mt-6 text-xl font-medium sm:text-2xl">
             {pessoa.titulo}
@@ -56,11 +82,15 @@ export default function Topo() {
         </div>
 
         {/* Foto dentro de uma flor, com ondas atrás */}
-        <div className="relative order-1 mx-auto w-full max-w-[26rem] md:order-2">
+        <motion.div
+          className="relative order-1 mx-auto w-full max-w-[26rem] md:order-2"
+          style={{ rotateX: girarX, rotateY: girarY, transformPerspective: 900 }}
+        >
           <motion.div
             initial={{ scale: 0.6, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", stiffness: 90, damping: 14 }}
+            style={{ x: ondasX, y: ondasY }}
             className="ondas aspect-square rounded-full"
             aria-hidden
           />
@@ -85,6 +115,7 @@ export default function Topo() {
             initial={{ scale: 0, rotate: -90 }}
             animate={{ scale: 1, rotate: -12 }}
             transition={{ delay: 0.75, type: "spring", stiffness: 200, damping: 12 }}
+            style={{ x: pertoX, y: pertoY }}
             className="absolute -left-2 bottom-2 sm:-left-6"
           >
             <Selo className="h-28 w-28 font-display text-base leading-tight sm:h-32 sm:w-32 sm:text-lg">
@@ -96,6 +127,8 @@ export default function Topo() {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.9, type: "spring" }}
+            style={{ x: longeX, y: longeY }}
+            whileHover={{ rotate: 180, scale: 1.3 }}
             className="absolute -right-1 top-4"
           >
             <Brilho className="h-14 w-14 text-limao drop-shadow-[2px_2px_0_var(--color-vinho)]" />
@@ -104,11 +137,13 @@ export default function Topo() {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 1, type: "spring" }}
+            style={{ x: longeX, y: pertoY }}
+            whileHover={{ rotate: -120, scale: 1.3 }}
             className="absolute right-6 bottom-0"
           >
             <Flor className="h-12 w-12 text-lavanda" />
           </motion.div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -11,7 +11,7 @@ const adesivos = [
   { t: "React + TypeScript", c: "bg-lavanda", x: "52%", y: "12%", xm: "38%", ym: "20%", r: -4, f: "rounded-full" },
   { t: "Gemini ✦ RAG ✦ agentes", c: "bg-leite", x: "68%", y: "60%", xm: "30%", ym: "74%", r: 7, f: "rounded-[0.6rem_2rem_0.6rem_2rem]" },
   { t: "C# / .NET", c: "bg-vinho text-leite", x: "84%", y: "22%", xm: "62%", ym: "38%", r: 10, f: "rounded-full" },
-  { t: "movida a café", c: "bg-chiclete", x: "4%", y: "66%", xm: "4%", ym: "34%", r: 4, f: "rounded-full" },
+  { t: "Figma + UX", c: "bg-chiclete", x: "4%", y: "66%", xm: "4%", ym: "34%", r: 4, f: "rounded-full" },
 ];
 
 export default function Adesivos() {

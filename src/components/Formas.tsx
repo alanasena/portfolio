@@ -64,7 +64,8 @@ export function Selo({
   );
 }
 
-// Texto girando em círculo, como um carimbo
+// Texto girando em círculo, como um carimbo.
+// textLength faz o texto ocupar o círculo certinho em qualquer navegador (sem sobrar nem encavalar)
 export function TextoCircular({ texto, className }: { texto: string; className?: string }) {
   return (
     <svg viewBox="0 0 200 200" className={className} aria-hidden>
@@ -72,7 +73,7 @@ export function TextoCircular({ texto, className }: { texto: string; className?:
         <path id="circulo" d="M100 100 m-74 0 a74 74 0 1 1 148 0 a74 74 0 1 1 -148 0" />
       </defs>
       <g className="girar" style={{ transformOrigin: "100px 100px" }}>
-        <text fontSize="17" fontWeight="700" letterSpacing="2.4" fill="currentColor">
+        <text fontSize="16" fontWeight="700" fill="currentColor" textLength="462" lengthAdjust="spacing">
           <textPath href="#circulo">{texto}</textPath>
         </text>
       </g>

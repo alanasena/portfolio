@@ -56,6 +56,7 @@ export const projetos: Projeto[] = [
       "Agente de IA que entende pedidos de comida em linguagem natural, decide quais ferramentas usar (buscar restaurantes, ver cardápio, calcular total), respeita o orçamento e pede confirmação antes de fechar.",
     tecnologias: ["Python", "FastAPI", "Gemini (function calling)", "React", "TypeScript", "PostgreSQL", "Docker"],
     github: "https://github.com/alanasena/rango-agente",
+    site: "https://https://rango-three.vercel.app/",
   },
   {
     nome: "Bloom",
